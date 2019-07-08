@@ -56,8 +56,17 @@ gulp.task("style:production", function () {
 gulp.task("images", function () {
   return gulp.src("img/**/*.{png,jpg,gif}")
     .pipe(imagemin([
-      imagemin.optipng({optimizationLevel: 3}),
-      imagemin.jpegtran({progressive: true})
+//      imagemin.optipng({optimizationLevel: 3}),
+//      imagemin.jpegtran({progressive: true})
+        imagemin.gifsicle({interlaced: true}),
+        imagemin.jpegtran({progressive: true}),
+        imagemin.optipng({optimizationLevel: 5}),
+        imagemin.svgo({
+            plugins: [
+                {removeViewBox: true},
+                {cleanupIDs: false}
+            ]
+        })
     ]))
     .pipe(gulp.dest("img"));
 });
