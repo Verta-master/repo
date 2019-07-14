@@ -6,7 +6,6 @@ var plumber = require("gulp-plumber");
 var postcss = require("gulp-postcss");
 var autoprefixer = require("autoprefixer");
 var server = require("browser-sync").create();
-//var mqpacker = require("css-mqpacker");
 var minify = require("gulp-csso");
 var rename = require("gulp-rename");
 var imagemin = require("gulp-imagemin");
@@ -42,7 +41,6 @@ gulp.task("style:production", function () {
     .pipe(plumber())
     .pipe(less())
     .pipe(postcss([
-//      mqpacker(),
       autoprefixer({browsers: [
         "last 2 versions"
       ]})
@@ -56,17 +54,8 @@ gulp.task("style:production", function () {
 gulp.task("images", function () {
   return gulp.src("img/**/*.{png,jpg,gif}")
     .pipe(imagemin([
-//      imagemin.optipng({optimizationLevel: 3}),
-//      imagemin.jpegtran({progressive: true})
-        imagemin.gifsicle({interlaced: true}),
-        imagemin.jpegtran({progressive: true}),
-        imagemin.optipng({optimizationLevel: 5}),
-        imagemin.svgo({
-            plugins: [
-                {removeViewBox: true},
-                {cleanupIDs: false}
-            ]
-        })
+      imagemin.optipng({optimizationLevel: 3}),
+      imagemin.jpegtran({progressive: true})
     ]))
     .pipe(gulp.dest("img"));
 });
